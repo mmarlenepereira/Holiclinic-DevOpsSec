@@ -1,15 +1,11 @@
+const app = require('../app'); // Assuming you have an express app defined in app.js
 const request = require('supertest');
-const assert = require('assert');
+const chai = require('chai');
 
-describe('Booking page', function() {
-  it('should include the Calendly script', function(done) {
-    request('http://localhost:4000')
-      .get('/booking.html')
-      .expect(200)
-      .end(function(err, res) {
-        if (err) return done(err);
-        assert(res.text.includes('calendly.com/assets/external/widget.js'), 'Calendly script is not included');
-        done();
-      });
+describe('Booking page', () => {
+  it('should display the Calendly form', async () => {
+    const res = await request(app).get('/booking.html');
+    chai.expect(res.status).to.equal(200);
+    chai.expect(res.text).to.include('calendly-widget');
   });
 });
