@@ -2,19 +2,19 @@
 
 const request = require('supertest');
 const app = require('../app');
+const PORT = 4000; // Define a different port number for each test file to prevent conflicts
 let server;
 
 beforeEach((done) => {
-  server = app.listen(0, () => {
-    const port = server.address().port;
-    global.agent = request.agent(`http://localhost:${port}`);
-    done();
+    server = app.listen(PORT, () => {
+      global.agent = request.agent(`http://localhost:${PORT}`); // Use the specified port number
+      done();
+    });
   });
-});
 
-afterEach((done) => {
-  return server && server.close(done);
-});
+  afterEach((done) => {
+    return server && server.close(done);
+  });
 
 describe('Contact Us Page', () => {
   it('should display embedded google maps', async () => {
