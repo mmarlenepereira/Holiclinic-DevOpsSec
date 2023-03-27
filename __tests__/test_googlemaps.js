@@ -1,28 +1,19 @@
-const puppeteer = require('puppeteer');
+const request = require('supertest');
+const app = require('../app'); // replace this with the path to your app file
+const cheerio = require('cheerio');
 
-describe('Google Maps', () => {
-  let browser;
-  let page;
+describe('aboutus.html', () => {
+  test('Google Maps should load correctly', async () => {
+    const response = await request(app).get('/aboutus.html');
+    expect(response.statusCode).toBe(200);
 
-  beforeAll(async () => {
-    browser = await puppeteer.launch();
-    page = await browser.newPage();
-  });
+    const $ = cheerio.load(response.text);
+    const iframeSrc = $('iframe').attr('src');
 
-  afterAll(async () => {
-    await browser.close();
-  });
-
-  test('should load Google Maps', async () => {
-    await page.goto('/contactus');
-    await page.waitForSelector('#map');
-
-    const mapTitle = await page.title();
-    expect(mapTitle).toContain('Google Maps');
-
-    const mapIframe = await page.$('#map iframe');
-    expect(mapIframe).not.toBeNull();
+    expect(iframeSrc).toMatch(/^https:\/\/www\.google\.com\/maps\/embed\?pb=.+/);
   });
 });
+
+
 
 
