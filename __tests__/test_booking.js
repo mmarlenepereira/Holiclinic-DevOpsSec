@@ -1,4 +1,4 @@
-//test is there is an embedded google maps on the page
+//gtest if there is a calendly widget on the page
 
 const request = require('supertest');
 const app = require('../app');
@@ -16,12 +16,10 @@ afterEach((done) => {
   return server && server.close(done);
 });
 
-describe('Contact Us Page', () => {
-  it('should display embedded google maps', async () => {
-    const response = await request(app)
-      .get('/contactus.html');
-
-    expect(response.status).toEqual(200);
-    expect(response.text).toContain('https://www.google.com/maps/embed?pb');
+describe('Booking page', () => {
+  it('contains Calendly widget', () => {
+    const bookingHtml = fs.readFileSync(path.join(__dirname, '/booking.html'), 'utf8');
+    const widgetElement = '<div class="calendly-inline-widget"';
+    expect(bookingHtml).toContain(widgetElement);
   });
 });
