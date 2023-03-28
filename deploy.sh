@@ -20,3 +20,5 @@ echo $SERVER > server.crt
 
 # Start the application with the process name SimpleApplication2 using pm2
 pm2 start ./bin/www --name Holiclinic-DevOpsSec
+
+# end
