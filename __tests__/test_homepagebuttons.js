@@ -1,30 +1,28 @@
+const fs = require('fs');
+const path = require('path');
 const request = require('supertest');
 const app = require('../app');
-const PORT = 3003; // Define a different port number for each test file to prevent conflicts
-let server;
 
-beforeEach((done) => {
-    server = app.listen(PORT, () => {
-      global.agent = request.agent(`http://localhost:${PORT}`); // Use the specified port number
-      done();
-    });
+describe('Index page', () => {
+  let indexHtml;
+
+  beforeAll(() => {
+    indexHtml = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf8');
   });
 
-  afterEach((done) => {
-    return server && server.close(done);
+  it('contains Make a Booking button that links to /booking.html', () => {
+    const makeBookingBtn = '<button class="cta booking" type="submit" alt="Background image of two fingers holding a needle">Make a Booking</button>';
+    expect(indexHtml).toContain(makeBookingBtn);
+
+    const makeBookingForm = '<form action="booking.html" style="width:100%;">';
+    expect(indexHtml).toContain(makeBookingForm);
   });
 
+  it('contains About our Clinic button that links to /aboutus.html', () => {
+    const aboutClinicBtn = '<button class="cta aboutclinic" type="submit" alt="Background image of a person receiving a massage">About our Clinic</button>';
+    expect(indexHtml).toContain(aboutClinicBtn);
 
-describe('Test button routing', () => {
-  test('should redirect to booking page', async () => {
-    const response = await request(app).get('/booking');
-    expect(response.status).toBe(302);
-    expect(response.headers.location).toBe('/booking.html');
-  });
-
-  test('should redirect to about us page', async () => {
-    const response = await request(app).get('/about');
-    expect(response.status).toBe(302);
-    expect(response.headers.location).toBe('/aboutus.html');
+    const aboutClinicForm = '<form action="aboutus.html" style="width:100%;">';
+    expect(indexHtml).toContain(aboutClinicForm);
   });
 });
