@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Configure git with credentials
-git config --global credential.helper store
-git config --global user.email "marlene.pereira9@gmail.com"
-git config --global user.name "mmarlenepereira"
+# git config --global credential.helper store
+# git config --global user.email "marlene.pereira9@gmail.com"
+# git config --global user.name "mmarlenepereira"
 
 sudo apt update && sudo apt install nodejs npm
 
@@ -19,8 +19,8 @@ cd Holiclinic-DevOpsSec
 # Install application dependancies
 npm install
 
-echo $PRIVATE_KEY > privatekey.pem
-echo $SERVER > server.crt
+#echo $PRIVATE_KEY > privatekey.pem
+#echo $SERVER > server.crt
 
 # Start the application with the process name Holiclinic-DevOpsSec using pm2
 pm2 start ./bin/www --name Holiclinic-DevOpsSec
