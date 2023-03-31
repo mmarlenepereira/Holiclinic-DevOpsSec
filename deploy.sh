@@ -25,3 +25,4 @@ npm install
 # Start the application with the process name Holiclinic-DevOpsSec using pm2
 pm2 start ./bin/www --name Holiclinic-DevOpsSec
 
+#end
