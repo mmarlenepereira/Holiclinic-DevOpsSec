@@ -44,3 +44,4 @@ jobs:
           name: deploy-application
           command: ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS "rm -rf Holiclinic-DevOpsSec/; git clone https://github.com/mmarlenepereira/Holiclinic-DevOpsSec.git; source Holiclinic-DevOpsSec/deploy.sh"
 
+#NEW ATTEMPT WITH NEW INSTANCE
