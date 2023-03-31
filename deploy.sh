@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Configure git with credentials
-git config --global credential.helper store
-git config --global user.email "x22115234@student.ncirl.ie"
-git config --global user.name "mmarlenepereira"
+# git config --global credential.helper store
+g# it config --global user.email "x22115234@student.ncirl.ie"
+# git config --global user.name "mmarlenepereira"
 
 sudo apt update && sudo apt install nodejs npm
 
